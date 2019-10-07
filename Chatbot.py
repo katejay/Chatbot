@@ -15,18 +15,26 @@ lbl.place(x=100, y=20)
 frame = Frame(window)
 frame.place(x=100, y=120, width=625, height=400)
 
-sc = Scrollbar(frame)
+vscrollbar = Scrollbar(frame, orient=VERTICAL)
+hscrollbar = Scrollbar(frame, orient=HORIZONTAL)
 msg = Listbox(frame, width=100, height=20)
-sc.pack(side=RIGHT, fill=Y)
+vscrollbar.pack(side=RIGHT, fill=Y)
+hscrollbar.pack(side=BOTTOM, fill=X)
 msg.pack(side=LEFT, fill=BOTH)
+vscrollbar.config(command = msg.yview )
+hscrollbar.config(command = msg.xview )
 
 def send_message():
     question = txt.get()
     msg.insert(END, "You : " + question)
     a = Chat(conv, reflections)
-    answer = a.respond(question)
-    msg.insert(END, "Kgce Bot : " + answer)
-    msg.insert(END, "")
+    try:
+        answer = a.respond(question)
+        msg.insert(END, "Kgce Bot : " + answer)
+        msg.insert(END, "")
+    except:
+        msg.insert(END, "Kgce Bot : I am sorry, I don't have an answer for this. Please try again with different question.")
+        msg.insert(END, "")
     txt.delete(0, 'end')
 
 def clear():
@@ -86,11 +94,11 @@ btn15 = tk.Button(window, text="What is the fee structure ?", fg="black", bg="wh
 btn15.place(x=800, y=480)
 
 def btn16():
-    msg.insert(END, "You : who is your creater ?")
+    msg.insert(END, "You : who is your creator ?")
     msg.insert(END, "Kgce Bot : Jay Kate create me using Python's NLTK library.")
     msg.insert(END, "")
 
-btn16 = tk.Button(window, text="Who is your creater ?", fg="black", bg="white", width=30, height=1, activebackground = "yellow", font=('times', 18, ' bold '), command=btn16)
+btn16 = tk.Button(window, text="Who is your creator ?", fg="black", bg="white", width=30, height=1, activebackground = "yellow", font=('times', 18, ' bold '), command=btn16)
 btn16.place(x=800, y=550)
 
 lbl21 = tk.Label(window, text="CHATBOT MINI-PROJECT BY KGCE BE-IT BATCH 2020, GROUP NO : 10", width=80, fg="white", bg="black", font=('times', 15, ' bold')) 
